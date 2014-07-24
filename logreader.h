@@ -26,6 +26,8 @@ protected:
     QUdpSocket transmitter;
     QHostAddress *address;
     quint16 port;
+    qint8 counter;
+    qint8 packetno;
 
     QString checksum(QByteArray inData);
     QString checksum(QString inData);

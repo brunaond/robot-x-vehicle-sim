@@ -41,6 +41,16 @@ int Logreader::readAndTransmit(){
     parsedFileLine = parseData(fileLine);
     //transmitData(parsedFileLine);
     qDebug() << parsedFileLine;
+    qDebug() << counter;
+    qDebug() << packetno;
+    counter++;
+    if (counter==2){
+          packetno ++;
+          counter = 0;
+        }
+    if (packetno > 2){
+          packetno = 0;
+    }
     return 0;
 }
 
@@ -68,7 +78,7 @@ QString Logreader::parseData(QString fileLine){
     foreach (QChar var, fileLine) {
         if (var != ';'){
             processData.append(var);
-        } else if (var == ';') {
+        } else if (var == ';'){
             parsingData.append(processData);
             processData.clear();
         }
@@ -77,16 +87,74 @@ QString Logreader::parseData(QString fileLine){
     // Chain for transmission assembly
     // TODO: Complete the parsed string and include a clause which will change the string to a status once in a while.
     if (!parsingData.isEmpty()) {
-        parsedFileLine.append("$MSG,");
-        parsedFileLine.append("LAT");
-        parsedFileLine.append(',');
-        parsedFileLine.append(parsingData.at(0));
-        parsedFileLine.append(',');
-        parsedFileLine.append(parsingData.at(1));
-        parsedFileLine.append('*');
-        parsedFileLine.append(checksum(parsedFileLine));
-        parsedFileLine.append('\r');
-        parsedFileLine.append('\n');
+        switch (packetno){
+        case 0:parsedFileLine.append("$MSG,");
+               parsedFileLine.append("LAT");
+               parsedFileLine.append(',');
+               parsedFileLine.append(parsingData.at(0));
+               parsedFileLine.append(',');
+               parsedFileLine.append(parsingData.at(1));
+               parsedFileLine.append(',');
+               parsedFileLine.append("LON");
+               parsedFileLine.append(',');
+               parsedFileLine.append(parsingData.at(2));
+               parsedFileLine.append(',');
+               parsedFileLine.append(parsingData.at(3));
+               parsedFileLine.append('*');
+               parsedFileLine.append(checksum(parsedFileLine));
+               parsedFileLine.append('\r');
+               parsedFileLine.append('\n'); break;
+        case 1:parsedFileLine.append("$MSG,");
+               parsedFileLine.append("VLC");
+               parsedFileLine.append(',');
+               parsedFileLine.append(parsingData.at(5));
+               parsedFileLine.append(',');
+               parsedFileLine.append("ENG");
+               parsedFileLine.append("LS");
+               parsedFileLine.append(',');
+               parsedFileLine.append("xxx");
+               parsedFileLine.append(',');
+               parsedFileLine.append("ACX");
+               parsedFileLine.append(',');
+               parsedFileLine.append(parsingData.at(6));
+               parsedFileLine.append(',');
+               parsedFileLine.append("ACY");
+               parsedFileLine.append(',');
+               parsedFileLine.append(parsingData.at(7));
+               parsedFileLine.append(',');
+               parsedFileLine.append("ACZ");
+               parsedFileLine.append(',');
+               parsedFileLine.append(parsingData.at(8));
+               parsedFileLine.append('*');
+               parsedFileLine.append(checksum(parsedFileLine));
+               parsedFileLine.append('\r');
+               parsedFileLine.append('\n'); break;
+        case 2:parsedFileLine.append("$MSG,");
+               parsedFileLine.append("HDG");
+               parsedFileLine.append(',');
+               parsedFileLine.append(parsingData.at(4));
+               parsedFileLine.append(',');
+               parsedFileLine.append("HDT");
+               parsedFileLine.append(',');
+               parsedFileLine.append("xxx");
+               parsedFileLine.append(',');
+               parsedFileLine.append("ACP");
+               parsedFileLine.append(',');
+               parsedFileLine.append(parsingData.at(9));
+               parsedFileLine.append(',');
+               parsedFileLine.append("ACW");
+               parsedFileLine.append(',');
+               parsedFileLine.append(parsingData.at(10));
+               parsedFileLine.append(',');
+               parsedFileLine.append("ACR");
+               parsedFileLine.append(',');
+               parsedFileLine.append(parsingData.at(11));
+               parsedFileLine.append('*');
+               parsedFileLine.append(checksum(parsedFileLine));
+               parsedFileLine.append('\r');
+               parsedFileLine.append('\n'); break;
+        default: parsedFileLine.append("error");
+        }
     }
 
     return parsedFileLine;

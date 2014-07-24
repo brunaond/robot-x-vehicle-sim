@@ -7,7 +7,7 @@
 #include <iostream>
 
 #define PORT 25050
-#define FILE_PATH "C:\\Qt\\Projects\\build-LogReader-Desktop_Qt_5_3_0_MinGW_32bit-Debug\\debug\\fake_log_short.csv"
+#define FILE_PATH "D:\\ntu\\ureca\\robot-x-vehicle-sim\\fake_log.csv"
 
 
 int main(int argc, char *argv[])
