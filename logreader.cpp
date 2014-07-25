@@ -39,10 +39,8 @@ int Logreader::readAndTransmit(){
     QString parsedFileLine;
     fileLine = readDataFromFile();
     parsedFileLine = parseData(fileLine);
-    //transmitData(parsedFileLine);
+    transmitData(parsedFileLine);
     qDebug() << parsedFileLine;
-    qDebug() << counter;
-    qDebug() << packetno;
     counter++;
     if (counter==2){
           packetno ++;
@@ -76,9 +74,9 @@ QString Logreader::parseData(QString fileLine){
     parsedFileLine.clear();
 
     foreach (QChar var, fileLine) {
-        if (var != ';'){
+        if ((var != ';')&& (var != '\n')){
             processData.append(var);
-        } else if (var == ';'){
+        } else if ((var == ';')|| (var == '\n')){
             parsingData.append(processData);
             processData.clear();
         }
