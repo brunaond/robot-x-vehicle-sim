@@ -7,7 +7,7 @@
 #include <iostream>
 
 #define PORT 25050
-#define FILE_PATH "D:\\ntu\\ureca\\robot-x-vehicle-sim\\fake_log.csv"
+#define FILE_PATH "C:\\_work\\robot-x-vehicle-sim\\fake_log.csv"
 
 
 int main(int argc, char *argv[])

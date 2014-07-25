@@ -74,9 +74,9 @@ QString Logreader::parseData(QString fileLine){
     parsedFileLine.clear();
 
     foreach (QChar var, fileLine) {
-        if ((var != ';')&& (var != '\n')){
+        if ((var != ';')&& (var != '\r')){
             processData.append(var);
-        } else if ((var == ';')|| (var == '\n')){
+        } else if ((var == ';')|| (var == '\r')){
             parsingData.append(processData);
             processData.clear();
         }
