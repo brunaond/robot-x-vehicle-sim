@@ -98,6 +98,14 @@ QString Logreader::parseData(QString fileLine){
                parsedFileLine.append(parsingData.at(2));
                parsedFileLine.append(',');
                parsedFileLine.append(parsingData.at(3));
+               /*parsedFileLine.append("LATDG");
+               parsedFileLine.append(',');
+               parsedFileLine.append(parsingData.at(LATDEG));
+               parsedFileLine.append(',');
+               parsedFileLine.append(parsingData.at(LATMINS));
+               parsedFileLine.append(',');
+               parsedFileLine.append(parsingData.at(LATSEC));*/
+               //code above has no fake log
                parsedFileLine.append('*');
                parsedFileLine.append(checksum(parsedFileLine));
                parsedFileLine.append('\r');
@@ -151,6 +159,41 @@ QString Logreader::parseData(QString fileLine){
                parsedFileLine.append(checksum(parsedFileLine));
                parsedFileLine.append('\r');
                parsedFileLine.append('\n'); break;
+        /*case 3:parsedFileLine.append("$MSG,");
+               parsedFileLine.append("LDR");
+               parsedFileLine.append(',');
+               for (int i = 1; i<17;i++){
+                   parsedFileLine.append(parsingData.at(i));
+               }
+               parsedFileLine.append("HP");
+               parsedFileLine.append(',');
+               parsedFileLine.append(parsingData.at(PHDG));
+               parsedFileLine.append(',');
+               parsedFileLine.append(parsingData.at(PHPTH));
+               parsedFileLine.append(',');
+               parsedFileLine.append("HPF");
+               parsedFileLine.append(',');
+               parsedFileLine.append(parsingData.at(FREQ));
+               parsedFileLine.append('*');
+               parsedFileLine.append(checksum(parsedFileLine));
+               parsedFileLine.append('\r');
+               parsedFileLine.append('\n'); break;
+        case 4:parsedFileLine.append("$MSG,");
+               parsedFileLine.append("GPS");
+               parsedFileLine.append(',');
+               parsedFileLine.append(parsingData.at(1/0));
+               parsedFileLine.append(',');
+               parsedFileLine.append(parsingData.at(1/0)));
+               parsedFileLine.append(',');
+               parsedFileLine.append("IMU");
+               parsedFileLine.append(',');
+               parsedFileLine.append(parsingData.at(1/0)));
+               parsedFileLine.append('*');
+               parsedFileLine.append(checksum(parsedFileLine));
+               parsedFileLine.append('\r');
+               parsedFileLine.append('\n'); break;*/
+               //NO FAKE LOG
+
         default: parsedFileLine.append("error");
         }
     }
