@@ -34,6 +34,21 @@ QString Logreader::getLine(){
     return this->line;
 }
 
+void Logreader::transmitHeartbeat(){
+    QString parsedHeartbeatLine;
+    QString heartbeatLine;
+
+    parsedHeartbeatLine.clear();
+
+    heartbeatLine = "$RXHRT,161229,37.267458,N,12.376548,W,LEVIATHAN,2,3*";
+    parsedHeartbeatLine.append(heartbeatLine);
+    parsedHeartbeatLine.append(checksum(heartbeatLine));
+    parsedHeartbeatLine.append('\r');
+    parsedHeartbeatLine.append('\n');
+    transmitData(parsedHeartbeatLine);
+    qDebug() << parsedHeartbeatLine;
+}
+
 int Logreader::readAndTransmit(){
     QString fileLine;
     QString parsedFileLine;

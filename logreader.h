@@ -36,6 +36,7 @@ public:
     QString getLine();
 public slots:
     int readAndTransmit();
+    void transmitHeartbeat();
 
 private:
     QString readDataFromFile();
